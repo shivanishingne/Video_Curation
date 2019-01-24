@@ -1,3 +1,6 @@
+Video_Curation is a  video player application that allows the admin to add, delete, modify videos, playlists and their metadata.
+Created using MongoDB, Express Server, Angular and Node.js.
+
 # NgApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
