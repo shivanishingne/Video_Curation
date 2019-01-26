@@ -1,25 +1,29 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+var express = require('express');
+var bodyParser = require('body-parser');
 
-const path = require('path');
+var index = require('./routes/index');
+var videos = require('./routes/videos');
 
-const api = require('./server/routes/api');
-const port = 3000;
+var port = 3000;
+var app = express();
 
-const app = express();
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
 
-app.use(express.static(path.join(__dirname, 'dist')));
 
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.static(__dirname + '/public'));
+
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use('/api', api);
+app.use('/', index);
+app.use('/api', videos);
 
-app.get('*', (req,res) => {
-res.sendFile(path.join(__dirname,'dist/index.html'));
+app.use('*',function (req, res) {
+    res.redirect('/');
 });
 
 app.listen(port, function(){
-    console.log("Server running on localhost: " + port);
-});
-
+    console.log("Server running on localhost:" + port);
+})
